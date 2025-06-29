@@ -234,11 +234,13 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
                         // 检查是否需要打开文档
                         chrome.storage.sync.get({
+                            ip: 'http://127.0.0.1:6806',
                             expOpenAfterClip: false,
                         }, (items) => {
                             if (items.expOpenAfterClip && response.data) {
                                 // 使用 SiYuan 协议在桌面应用中打开文档
-                                const documentUrl = `siyuan://blocks/${response.data}`;
+                                // const documentUrl = `siyuan://blocks/${response.data}`;
+                                const documentUrl = `${items.ip}/stage/build/desktop/?id=${response.data}`;
                                 chrome.tabs.create({ url: documentUrl });
                             }
                         });
